@@ -1,0 +1,1538 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <!-- Responsive viewport meta tag for mobile, tablet, and desktop -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HavenStay | Modern Student PG & Co-Living Hostel</title>
+
+    <!-- Google Fonts: Outfit for display headings & Plus Jakarta Sans for clean readability -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+    <style>
+        /* ==========================================================================
+           1. DESIGN TOKENS & RESET
+           ========================================================================== */
+        :root {
+            --primary: #0f766e;          /* Deep Forest Teal */
+            --primary-dark: #115e59;
+            --primary-light: #ccfbf1;
+            --accent: #d97706;           /* Warm Amber Gold */
+            --accent-bg: #fef3c7;
+            --bg-page: #f8fafc;          /* Soft Slate White */
+            --bg-surface: #ffffff;
+            --bg-dark: #0f172a;          /* Midnight Navy */
+            --text-main: #0f172a;
+            --text-muted: #475569;
+            --text-light: #f1f5f9;
+            --border-color: #e2e8f0;
+            --status-green: #15803d;
+            --status-green-bg: #dcfce7;
+            --status-amber: #b45309;
+            --status-amber-bg: #fef3c7;
+            --radius-sm: 8px;
+            --radius-md: 16px;
+            --radius-lg: 24px;
+            --shadow-sm: 0 4px 10px rgba(15, 23, 42, 0.05);
+            --shadow-md: 0 14px 28px rgba(15, 23, 42, 0.08);
+            --transition: all 0.28s ease;
+        }
+
+        *, *::before, *::after {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        html {
+            scroll-behavior: smooth;
+            font-size: 16px;
+        }
+
+        body {
+            font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+            background-color: var(--bg-page);
+            color: var(--text-main);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        h1, h2, h3, h4, .brand {
+            font-family: 'Outfit', sans-serif;
+            line-height: 1.2;
+        }
+
+        img {
+            display: block;
+            max-width: 100%;
+            height: auto;
+        }
+
+        a {
+            color: inherit;
+            text-decoration: none;
+        }
+
+        .container {
+            width: 92%;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        section {
+            padding: 5rem 0;
+        }
+
+        .section-head {
+            text-align: center;
+            max-width: 680px;
+            margin: 0 auto 3.25rem auto;
+        }
+
+        .section-pill {
+            display: inline-block;
+            background: var(--primary-light);
+            color: var(--primary-dark);
+            font-size: 0.8rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1.4px;
+            padding: 0.38rem 0.95rem;
+            border-radius: 50px;
+            margin-bottom: 0.75rem;
+        }
+
+        .section-head h2 {
+            font-size: clamp(1.9rem, 3.8vw, 2.65rem);
+            font-weight: 800;
+            margin-bottom: 0.85rem;
+            color: var(--text-main);
+        }
+
+        .section-head p {
+            color: var(--text-muted);
+            font-size: 1.02rem;
+        }
+
+        /* Buttons */
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            padding: 0.85rem 1.65rem;
+            border-radius: 50px;
+            font-weight: 700;
+            font-size: 0.94rem;
+            cursor: pointer;
+            transition: var(--transition);
+            border: 2px solid transparent;
+        }
+
+        .btn-primary {
+            background-color: var(--primary);
+            color: #ffffff;
+            box-shadow: 0 8px 20px rgba(15, 118, 110, 0.25);
+        }
+
+        .btn-primary:hover {
+            background-color: var(--primary-dark);
+            transform: translateY(-2px);
+        }
+
+        .btn-outline {
+            background-color: #ffffff;
+            color: var(--text-main);
+            border-color: var(--border-color);
+        }
+
+        .btn-outline:hover {
+            border-color: var(--primary);
+            color: var(--primary);
+        }
+
+        /* ==========================================================================
+           2. STICKY NAVIGATION BAR (Pure-CSS Mobile Drawer)
+           ========================================================================== */
+        .navbar {
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            background: rgba(255, 255, 255, 0.94);
+            backdrop-filter: blur(12px);
+            border-bottom: 1px solid var(--border-color);
+            padding: 0.95rem 0;
+        }
+
+        .nav-inner {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .brand {
+            display: flex;
+            align-items: center;
+            gap: 0.6rem;
+            font-size: 1.55rem;
+            font-weight: 800;
+            color: var(--text-main);
+            letter-spacing: -0.4px;
+        }
+
+        .brand-badge {
+            width: 36px;
+            height: 36px;
+            border-radius: 10px;
+            background: var(--primary);
+            color: #ffffff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.15rem;
+        }
+
+        .nav-links {
+            display: flex;
+            align-items: center;
+            gap: 1.75rem;
+            list-style: none;
+        }
+
+        .nav-links a {
+            font-size: 0.92rem;
+            font-weight: 600;
+            color: var(--text-muted);
+            transition: var(--transition);
+        }
+
+        .nav-links a:hover {
+            color: var(--primary);
+        }
+
+        .nav-btn {
+            padding: 0.55rem 1.25rem !important;
+            color: #ffffff !important;
+            font-size: 0.88rem !important;
+        }
+
+        /* Pure-CSS Hamburger Menu */
+        #nav-toggle {
+            display: none;
+        }
+
+        .hamburger {
+            display: none;
+            flex-direction: column;
+            gap: 5px;
+            cursor: pointer;
+            padding: 0.45rem;
+        }
+
+        .hamburger span {
+            width: 25px;
+            height: 2.5px;
+            background-color: var(--text-main);
+            border-radius: 3px;
+        }
+
+        /* ==========================================================================
+           3. HERO SECTION
+           ========================================================================== */
+        .hero {
+            background: linear-gradient(135deg, #f0fdfa 0%, #ffffff 55%, #fffbeb 100%);
+            padding: 4.5rem 0 5rem 0;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .hero-grid {
+            display: grid;
+            grid-template-columns: 1.1fr 0.9fr;
+            gap: 3rem;
+            align-items: center;
+        }
+
+        .hero-tag {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: var(--accent-bg);
+            color: var(--status-amber);
+            font-size: 0.85rem;
+            font-weight: 700;
+            padding: 0.4rem 1rem;
+            border-radius: 50px;
+            margin-bottom: 1.25rem;
+        }
+
+        .hero h1 {
+            font-size: clamp(2.35rem, 4.6vw, 3.65rem);
+            font-weight: 800;
+            letter-spacing: -0.8px;
+            margin-bottom: 1.15rem;
+            color: var(--text-main);
+        }
+
+        .hero h1 span {
+            color: var(--primary);
+        }
+
+        .hero p {
+            font-size: 1.08rem;
+            color: var(--text-muted);
+            margin-bottom: 2rem;
+            max-width: 560px;
+        }
+
+        .hero-actions {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+            margin-bottom: 2.75rem;
+        }
+
+        .hero-metrics {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1.25rem;
+            padding-top: 1.75rem;
+            border-top: 1px solid var(--border-color);
+        }
+
+        .metric-box h3 {
+            font-size: 1.65rem;
+            font-weight: 800;
+            color: var(--primary);
+        }
+
+        .metric-box p {
+            font-size: 0.85rem;
+            margin: 0;
+            color: var(--text-muted);
+        }
+
+        .hero-visual {
+            position: relative;
+            background: var(--bg-surface);
+            padding: 1rem;
+            border-radius: var(--radius-lg);
+            border: 1px solid var(--border-color);
+            box-shadow: var(--shadow-md);
+        }
+
+        .hero-visual img {
+            width: 100%;
+            height: 360px;
+            object-fit: cover;
+            border-radius: var(--radius-md);
+        }
+
+        .hero-caption {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 0.5rem 0.25rem 0.5rem;
+        }
+
+        .hero-caption h4 {
+            font-size: 1.05rem;
+        }
+
+        .hero-caption span {
+            font-size: 0.85rem;
+            font-weight: 700;
+            color: var(--status-green);
+            background: var(--status-green-bg);
+            padding: 0.25rem 0.75rem;
+            border-radius: 50px;
+        }
+
+        /* ==========================================================================
+           4. AVAILABLE ROOMS SECTION
+           ========================================================================== */
+        .rooms-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(310px, 1fr));
+            gap: 2rem;
+        }
+
+        .room-card {
+            background: var(--bg-surface);
+            border-radius: var(--radius-md);
+            border: 1px solid var(--border-color);
+            overflow: hidden;
+            box-shadow: var(--shadow-sm);
+            transition: var(--transition);
+            display: flex;
+            flex-direction: column;
+        }
+
+        .room-card:hover {
+            transform: translateY(-6px);
+            box-shadow: var(--shadow-md);
+        }
+
+        .room-img-box {
+            position: relative;
+            height: 225px;
+            overflow: hidden;
+        }
+
+        .room-img-box img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.45s ease;
+        }
+
+        .room-card:hover .room-img-box img {
+            transform: scale(1.05);
+        }
+
+        .availability-badge {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            padding: 0.35rem 0.85rem;
+            border-radius: 50px;
+            font-size: 0.78rem;
+            font-weight: 700;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.12);
+        }
+
+        .badge-available {
+            background: var(--status-green-bg);
+            color: var(--status-green);
+        }
+
+        .badge-limited {
+            background: var(--status-amber-bg);
+            color: var(--status-amber);
+        }
+
+        .room-body {
+            padding: 1.65rem;
+            display: flex;
+            flex-direction: column;
+            flex: 1;
+        }
+
+        .room-title-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: baseline;
+            margin-bottom: 0.5rem;
+        }
+
+        .room-title-row h3 {
+            font-size: 1.3rem;
+        }
+
+        .room-price {
+            font-family: 'Outfit', sans-serif;
+            font-size: 1.35rem;
+            font-weight: 800;
+            color: var(--primary);
+        }
+
+        .room-price small {
+            font-size: 0.8rem;
+            font-weight: 500;
+            color: var(--text-muted);
+        }
+
+        .room-body p {
+            font-size: 0.92rem;
+            color: var(--text-muted);
+            margin-bottom: 1.25rem;
+        }
+
+        .room-specs {
+            list-style: none;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 0.55rem;
+            margin-bottom: 1.5rem;
+            padding-top: 1rem;
+            border-top: 1px solid var(--border-color);
+            font-size: 0.85rem;
+            color: var(--text-main);
+            font-weight: 500;
+        }
+
+        .room-body .btn {
+            margin-top: auto;
+            width: 100%;
+        }
+
+        /* ==========================================================================
+           5. ROOM FACILITIES SECTION
+           ========================================================================== */
+        .facilities-section {
+            background-color: #ffffff;
+            border-top: 1px solid var(--border-color);
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .facilities-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .facility-card {
+            background: var(--bg-page);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-md);
+            padding: 1.75rem;
+            transition: var(--transition);
+        }
+
+        .facility-card:hover {
+            border-color: var(--primary);
+            background: #f0fdfa;
+        }
+
+        .facility-icon {
+            width: 50px;
+            height: 50px;
+            border-radius: 12px;
+            background: var(--primary-light);
+            color: var(--primary-dark);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            margin-bottom: 1.1rem;
+        }
+
+        .facility-card h3 {
+            font-size: 1.15rem;
+            margin-bottom: 0.45rem;
+        }
+
+        .facility-card p {
+            font-size: 0.9rem;
+            color: var(--text-muted);
+        }
+
+        /* ==========================================================================
+           6. FOOD & WEEKLY MESS MENU SECTION
+           ========================================================================== */
+        .menu-highlights {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1.5rem;
+            margin-bottom: 2.5rem;
+        }
+
+        .meal-time-card {
+            background: var(--bg-surface);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-md);
+            padding: 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            box-shadow: var(--shadow-sm);
+        }
+
+        .meal-emoji {
+            font-size: 2rem;
+            background: var(--accent-bg);
+            width: 56px;
+            height: 56px;
+            border-radius: 14px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+
+        .meal-time-card h4 {
+            font-size: 1.08rem;
+            margin-bottom: 0.15rem;
+        }
+
+        .meal-time-card p {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+        }
+
+        .menu-table-wrap {
+            background: var(--bg-surface);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-md);
+            overflow-x: auto;
+            box-shadow: var(--shadow-sm);
+        }
+
+        .menu-table {
+            width: 100%;
+            border-collapse: collapse;
+            min-width: 680px;
+            text-align: left;
+        }
+
+        .menu-table th {
+            background: var(--primary);
+            color: #ffffff;
+            font-family: 'Outfit', sans-serif;
+            font-weight: 700;
+            font-size: 0.95rem;
+            padding: 1rem 1.25rem;
+        }
+
+        .menu-table td {
+            padding: 0.95rem 1.25rem;
+            border-bottom: 1px solid var(--border-color);
+            font-size: 0.9rem;
+            color: var(--text-main);
+        }
+
+        .menu-table tr:last-child td {
+            border-bottom: none;
+        }
+
+        .menu-table tr:nth-child(even) {
+            background-color: #f8fafc;
+        }
+
+        .day-label {
+            font-weight: 700;
+            color: var(--primary-dark);
+        }
+
+        /* ==========================================================================
+           7. HOSTEL RULES & GUIDELINES SECTION
+           ========================================================================== */
+        .rules-section {
+            background: var(--bg-dark);
+            color: var(--text-light);
+        }
+
+        .rules-section .section-head h2 {
+            color: #ffffff;
+        }
+
+        .rules-section .section-head p {
+            color: #94a3b8;
+        }
+
+        .rules-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .rule-card {
+            background: #1e293b;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: var(--radius-md);
+            padding: 1.75rem;
+        }
+
+        .rule-number {
+            display: inline-block;
+            background: rgba(20, 184, 166, 0.18);
+            color: #5eead4;
+            font-family: 'Outfit', sans-serif;
+            font-weight: 800;
+            font-size: 0.85rem;
+            padding: 0.3rem 0.75rem;
+            border-radius: 6px;
+            margin-bottom: 0.85rem;
+        }
+
+        .rule-card h3 {
+            font-size: 1.18rem;
+            color: #ffffff;
+            margin-bottom: 0.5rem;
+        }
+
+        .rule-card p {
+            font-size: 0.9rem;
+            color: #cbd5e1;
+        }
+
+        /* ==========================================================================
+           8. COMPLAINT & MAINTENANCE SUPPORT SECTION
+           ========================================================================== */
+        .support-grid {
+            display: grid;
+            grid-template-columns: 0.95fr 1.05fr;
+            gap: 2.5rem;
+            align-items: start;
+        }
+
+        .support-info-box {
+            background: var(--bg-surface);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-md);
+            padding: 2rem;
+            box-shadow: var(--shadow-sm);
+        }
+
+        .support-info-box h3 {
+            font-size: 1.45rem;
+            margin-bottom: 0.75rem;
+        }
+
+        .support-info-box > p {
+            color: var(--text-muted);
+            font-size: 0.95rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .desk-list {
+            display: flex;
+            flex-direction: column;
+            gap: 1.15rem;
+        }
+
+        .desk-item {
+            display: flex;
+            gap: 0.95rem;
+            align-items: flex-start;
+            padding: 1rem;
+            background: var(--bg-page);
+            border-radius: var(--radius-sm);
+            border: 1px solid var(--border-color);
+        }
+
+        .desk-icon {
+            font-size: 1.35rem;
+            flex-shrink: 0;
+        }
+
+        .desk-item h4 {
+            font-size: 1rem;
+            margin-bottom: 0.15rem;
+        }
+
+        .desk-item p {
+            font-size: 0.86rem;
+            color: var(--text-muted);
+        }
+
+        .form-card {
+            background: var(--bg-surface);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-md);
+            padding: 2.25rem;
+            box-shadow: var(--shadow-md);
+        }
+
+        .form-card h3 {
+            font-size: 1.4rem;
+            margin-bottom: 1.25rem;
+        }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1.15rem;
+            margin-bottom: 1.15rem;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            gap: 0.45rem;
+            margin-bottom: 1.15rem;
+        }
+
+        .form-row .form-group {
+            margin-bottom: 0;
+        }
+
+        .form-group label {
+            font-size: 0.88rem;
+            font-weight: 600;
+            color: var(--text-main);
+        }
+
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            width: 100%;
+            padding: 0.8rem 0.95rem;
+            border: 1.5px solid var(--border-color);
+            border-radius: var(--radius-sm);
+            font-family: inherit;
+            font-size: 0.92rem;
+            background: var(--bg-page);
+            color: var(--text-main);
+            transition: var(--transition);
+        }
+
+        .form-group input:focus,
+        .form-group select:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: var(--primary);
+            background: #ffffff;
+        }
+
+        /* ==========================================================================
+           9. CONTACT DETAILS & ROOM INQUIRY SECTION
+           ========================================================================== */
+        .contact-section {
+            background-color: #ffffff;
+            border-top: 1px solid var(--border-color);
+        }
+
+        .contact-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2.5rem;
+        }
+
+        .contact-cards {
+            display: flex;
+            flex-direction: column;
+            gap: 1.25rem;
+        }
+
+        .contact-tile {
+            display: flex;
+            gap: 1rem;
+            align-items: flex-start;
+            background: var(--bg-page);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-md);
+            padding: 1.35rem;
+        }
+
+        .contact-tile-icon {
+            width: 46px;
+            height: 46px;
+            border-radius: 12px;
+            background: var(--primary-light);
+            color: var(--primary-dark);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.3rem;
+            flex-shrink: 0;
+        }
+
+        .contact-tile h4 {
+            font-size: 1.05rem;
+            margin-bottom: 0.2rem;
+        }
+
+        .contact-tile p {
+            font-size: 0.9rem;
+            color: var(--text-muted);
+        }
+
+        /* ==========================================================================
+           10. PURE-CSS CONFIRMATION MODALS (:target)
+           ========================================================================== */
+        .modal-overlay {
+            position: fixed;
+            inset: 0;
+            background: rgba(15, 23, 42, 0.72);
+            backdrop-filter: blur(5px);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 1.5rem;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.3s ease;
+            z-index: 2000;
+        }
+
+        .modal-overlay:target {
+            opacity: 1;
+            pointer-events: auto;
+        }
+
+        .modal-card {
+            background: #ffffff;
+            max-width: 430px;
+            width: 100%;
+            border-radius: var(--radius-md);
+            padding: 2.25rem;
+            text-align: center;
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.3);
+        }
+
+        .modal-check {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background: var(--status-green-bg);
+            color: var(--status-green);
+            font-size: 1.85rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 1.15rem auto;
+        }
+
+        .modal-card h3 {
+            font-size: 1.45rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .modal-card p {
+            font-size: 0.94rem;
+            color: var(--text-muted);
+            margin-bottom: 1.5rem;
+        }
+
+        /* ==========================================================================
+           11. FOOTER
+           ========================================================================== */
+        footer {
+            background: var(--bg-dark);
+            color: #94a3b8;
+            padding: 3rem 0 2rem 0;
+            text-align: center;
+            font-size: 0.88rem;
+        }
+
+        footer .brand {
+            justify-content: center;
+            color: #ffffff;
+            margin-bottom: 0.75rem;
+        }
+
+        /* ==========================================================================
+           12. RESPONSIVE MEDIA QUERIES
+           ========================================================================== */
+        @media (max-width: 960px) {
+            .hero-grid,
+            .support-grid,
+            .contact-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .menu-highlights {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 768px) {
+            section {
+                padding: 3.75rem 0;
+            }
+
+            .hamburger {
+                display: flex;
+            }
+
+            .nav-links {
+                position: absolute;
+                top: 100%;
+                left: 0;
+                right: 0;
+                background: #ffffff;
+                flex-direction: column;
+                padding: 1.5rem;
+                gap: 1.15rem;
+                border-bottom: 1px solid var(--border-color);
+                box-shadow: var(--shadow-md);
+                display: none;
+            }
+
+            #nav-toggle:checked ~ .nav-links {
+                display: flex;
+            }
+
+            .form-row {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- ======================================================================
+         NAVIGATION BAR
+         ====================================================================== -->
+    <header class="navbar">
+        <div class="container nav-inner">
+            <a href="#" class="brand">
+                <span class="brand-badge">🏡</span>
+                <span>HavenStay PG</span>
+            </a>
+
+            <!-- Pure-CSS Mobile Menu Checkbox -->
+            <input type="checkbox" id="nav-toggle" aria-label="Toggle navigation">
+            <label for="nav-toggle" class="hamburger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </label>
+
+            <ul class="nav-links">
+                <li><a href="#rooms">Available Rooms</a></li>
+                <li><a href="#facilities">Facilities</a></li>
+                <li><a href="#menu">Food Menu</a></li>
+                <li><a href="#rules">Hostel Rules</a></li>
+                <li><a href="#support">Support Desk</a></li>
+                <li><a href="#contact" class="btn btn-primary nav-btn">Book / Contact</a></li>
+            </ul>
+        </div>
+    </header>
+
+    <!-- ======================================================================
+         HERO SECTION
+         ====================================================================== -->
+    <section class="hero">
+        <div class="container hero-grid">
+            <div>
+                <div class="hero-tag">✨ Admissions Open • 2026 Academic Session</div>
+                <h1>Comfortable, Safe & Homely <span>Student Living</span></h1>
+                <p>
+                    Located just 5 minutes from the University North Gate, HavenStay offers fully furnished AC/Non-AC rooms, nutritious home-style meals, high-speed Wi-Fi, and 24/7 warden support.
+                </p>
+                <div class="hero-actions">
+                    <a href="#rooms" class="btn btn-primary">View Available Rooms →</a>
+                    <a href="#menu" class="btn btn-outline">Check Weekly Menu</a>
+                </div>
+
+                <div class="hero-metrics">
+                    <div class="metric-box">
+                        <h3>14 Beds</h3>
+                        <p>Currently Available</p>
+                    </div>
+                    <div class="metric-box">
+                        <h3>4 Meals</h3>
+                        <p>Daily Fresh Mess</p>
+                    </div>
+                    <div class="metric-box">
+                        <h3>24/7</h3>
+                        <p>CCTV & Security</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="hero-visual">
+                <img
+                    src="https://images.unsplash.com/photo-1555854877-bab0e564b8d5?auto=format&fit=crop&w=900&q=80"
+                    alt="Clean modern student hostel bedroom with natural light"
+                    onerror="this.src='https://placehold.co/800x500/0f766e/ffffff?text=HavenStay+Student+Living'"
+                >
+                <div class="hero-caption">
+                    <div>
+                        <h4>Block A & B • Boys & Girls Separate Wings</h4>
+                    </div>
+                    <span>Zero Brokerage</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ======================================================================
+         1. AVAILABLE ROOMS SECTION
+         ====================================================================== -->
+    <section id="rooms">
+        <div class="container">
+            <div class="section-head">
+                <span class="section-pill">Accommodation Options</span>
+                <h2>Available Rooms & Monthly Tariff</h2>
+                <p>All rooms include individual ergonomic study desks, orthopedic mattresses, personal wardrobes, and attached washrooms.</p>
+            </div>
+
+            <div class="rooms-grid">
+                <!-- Single Occupancy -->
+                <article class="room-card">
+                    <div class="room-img-box">
+                        <img
+                            src="https://images.unsplash.com/photo-1522771739844-6a9f6d5f14af?auto=format&fit=crop&w=700&q=80"
+                            alt="Single occupancy private student room"
+                            onerror="this.src='https://placehold.co/600x400/0f766e/ffffff?text=Single+Studio+Room'"
+                        >
+                        <span class="availability-badge badge-limited">2 Rooms Left</span>
+                    </div>
+                    <div class="room-body">
+                        <div class="room-title-row">
+                            <h3>Single Private Room</h3>
+                            <span class="room-price">₹13,500<small>/mo</small></span>
+                        </div>
+                        <p>Ideal for final-year students and researchers seeking complete privacy and quiet study hours.</p>
+                        <ul class="room-specs">
+                            <li>✓ Split AC & Geyser</li>
+                            <li>✓ Private Balcony</li>
+                            <li>✓ Study Table & Chair</li>
+                            <li>✓ Attached Washroom</li>
+                        </ul>
+                        <a href="#contact" class="btn btn-primary">Reserve Single Room</a>
+                    </div>
+                </article>
+
+                <!-- Double Sharing -->
+                <article class="room-card">
+                    <div class="room-img-box">
+                        <img
+                            src="https://images.unsplash.com/photo-1595526114035-0d45ed16cfbf?auto=format&fit=crop&w=700&q=80"
+                            alt="Spacious twin sharing hostel room"
+                            onerror="this.src='https://placehold.co/600x400/115e59/ffffff?text=Twin+Sharing+Room'"
+                        >
+                        <span class="availability-badge badge-available">6 Beds Available</span>
+                    </div>
+                    <div class="room-body">
+                        <div class="room-title-row">
+                            <h3>Twin Sharing Deluxe</h3>
+                            <span class="room-price">₹9,500<small>/mo</small></span>
+                        </div>
+                        <p>Spacious two-bed layout with separate storage lockers, dual study stations, and abundant natural light.</p>
+                        <ul class="room-specs">
+                            <li>✓ AC / Non-AC Choice</li>
+                            <li>✓ 2 Study Desks</li>
+                            <li>✓ Full-Length Lockers</li>
+                            <li>✓ Attached Washroom</li>
+                        </ul>
+                        <a href="#contact" class="btn btn-primary">Reserve Twin Bed</a>
+                    </div>
+                </article>
+
+                <!-- Triple Sharing -->
+                <article class="room-card">
+                    <div class="room-img-box">
+                        <img
+                            src="https://images.unsplash.com/photo-1540518614846-7eded433c457?auto=format&fit=crop&w=700&q=80"
+                            alt="Budget friendly triple sharing room"
+                            onerror="this.src='https://placehold.co/600x400/0f172a/ffffff?text=Triple+Sharing+Room'"
+                        >
+                        <span class="availability-badge badge-available">6 Beds Available</span>
+                    </div>
+                    <div class="room-body">
+                        <div class="room-title-row">
+                            <h3>Triple Sharing Comfort</h3>
+                            <span class="room-price">₹7,200<small>/mo</small></span>
+                        </div>
+                        <p>Budget-friendly, well-ventilated large corner rooms designed for first-year undergraduates.</p>
+                        <ul class="room-specs">
+                            <li>✓ High-Speed Ceiling Fans</li>
+                            <li>✓ 3 Individual Beds</li>
+                            <li>✓ Dedicated Bookshelves</li>
+                            <li>✓ Daily Housekeeping</li>
+                        </ul>
+                        <a href="#contact" class="btn btn-primary">Reserve Triple Bed</a>
+                    </div>
+                </article>
+            </div>
+        </div>
+    </section>
+
+    <!-- ======================================================================
+         2. ROOM & HOSTEL FACILITIES SECTION
+         ====================================================================== -->
+    <section id="facilities" class="facilities-section">
+        <div class="container">
+            <div class="section-head">
+                <span class="section-pill">Included Amenities</span>
+                <h2>Room & Campus Facilities</h2>
+                <p>Everything is taken care of under one transparent monthly fee—no hidden maintenance charges.</p>
+            </div>
+
+            <div class="facilities-grid">
+                <div class="facility-card">
+                    <div class="facility-icon">📶</div>
+                    <h3>300 Mbps Fiber Wi-Fi</h3>
+                    <p>Dedicated dual-band routers on every floor ensuring lag-free online lectures and coding sessions.</p>
+                </div>
+
+                <div class="facility-card">
+                    <div class="facility-icon">🧺</div>
+                    <h3>Automatic Laundry</h3>
+                    <p>Self-service front-load washing machines and covered rooftop drying racks available free of cost.</p>
+                </div>
+
+                <div class="facility-card">
+                    <div class="facility-icon">⚡</div>
+                    <h3>100% Power Backup</h3>
+                    <p>Silent DG generator and inverter backup so your fans, lights, and study laptops never lose power.</p>
+                </div>
+
+                <div class="facility-card">
+                    <div class="facility-icon">🛡️</div>
+                    <h3>Biometric & CCTV Security</h3>
+                    <p>24/7 security guards, biometric main-gate entry, and CCTV monitoring across all common corridors.</p>
+                </div>
+
+                <div class="facility-card">
+                    <div class="facility-icon">💧</div>
+                    <h3>RO + UV Drinking Water</h3>
+                    <p>Chilled and normal purified drinking water dispensers installed on every residential floor.</p>
+                </div>
+
+                <div class="facility-card">
+                    <div class="facility-icon">📚</div>
+                    <h3>24/7 Reading Lounge</h3>
+                    <p>Air-conditioned silent study hall and indoor recreation zone with table tennis and chess.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ======================================================================
+         3. FOOD & WEEKLY MESS MENU SECTION
+         ====================================================================== -->
+    <section id="menu">
+        <div class="container">
+            <div class="section-head">
+                <span class="section-pill">Hygienic Dining</span>
+                <h2>Nutritious Food & Weekly Menu</h2>
+                <p>Freshly cooked homestyle vegetarian & eggetarian meals prepared in our FSSAI-certified kitchen.</p>
+            </div>
+
+            <div class="menu-highlights">
+                <div class="meal-time-card">
+                    <div class="meal-emoji">☕</div>
+                    <div>
+                        <h4>Breakfast & Tea</h4>
+                        <p>07:30 AM – 09:30 AM</p>
+                    </div>
+                </div>
+                <div class="meal-time-card">
+                    <div class="meal-emoji">🍛</div>
+                    <div>
+                        <h4>Lunch & Evening Snacks</h4>
+                        <p>12:30 PM – 02:30 PM • 05:30 PM</p>
+                    </div>
+                </div>
+                <div class="meal-time-card">
+                    <div class="meal-emoji">🍽️</div>
+                    <div>
+                        <h4>Dinner & Warm Milk</h4>
+                        <p>08:00 PM – 09:45 PM</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="menu-table-wrap">
+                <table class="menu-table">
+                    <thead>
+                        <tr>
+                            <th>Day</th>
+                            <th>Breakfast (7:30 AM)</th>
+                            <th>Lunch (12:30 PM)</th>
+                            <th>Evening Snack (5:30 PM)</th>
+                            <th>Dinner (8:00 PM)</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td class="day-label">Monday</td>
+                            <td>Aloo Paratha, Curd & Ginger Tea</td>
+                            <td>Rajma Masala, Jeera Rice, Roti & Salad</td>
+                            <td>Veg Sandwich & Masala Chai</td>
+                            <td>Mix Veg, Dal Tadka, Phulka & Kheer</td>
+                        </tr>
+                        <tr>
+                            <td class="day-label">Tuesday</td>
+                            <td>Idli Sambar, Coconut Chutney & Coffee</td>
+                            <td>Kadhi Pakora, Steamed Rice, Bhindi Fry</td>
+                            <td>Samosa & Mint Chutney</td>
+                            <td>Paneer Butter Masala, Tandoori Roti & Rice</td>
+                        </tr>
+                        <tr>
+                            <td class="day-label">Wednesday</td>
+                            <td>Poha, Sev, Sprouts & Boiled Eggs</td>
+                            <td>Chole Bhature / Roti, Boondi Raita</td>
+                            <td>Bhel Puri & Lemon Tea</td>
+                            <td>Egg Curry / Malai Kofta, Dal & Jeera Rice</td>
+                        </tr>
+                        <tr>
+                            <td class="day-label">Thursday</td>
+                            <td>Masala Dosa, Sambar & Filter Coffee</td>
+                            <td>Dal Makhani, Aloo Gobhi, Roti & Pulao</td>
+                            <td>Bread Pakora & Ginger Tea</td>
+                            <td>Matar Paneer, Chapati, Dal Fry & Gulab Jamun</td>
+                        </tr>
+                        <tr>
+                            <td class="day-label">Friday</td>
+                            <td>Upma, Banana, Toast & Tea</td>
+                            <td>Sambar Rice, Cabbage Poriyal, Curd & Papad</td>
+                            <td>Sweet Corn Chaat & Cold Coffee</td>
+                            <td>Veg Biryani, Mirchi Ka Salan & Onion Raita</td>
+                        </tr>
+                        <tr>
+                            <td class="day-label">Saturday</td>
+                            <td>Poori Bhaji & Sweet Halwa</td>
+                            <td>Moong Dal, Lauki Chana, Roti & Rice</td>
+                            <td>Maggi / Pasta & Masala Chai</td>
+                            <td>Kadhai Paneer, Laccha Paratha & Ice Cream</td>
+                        </tr>
+                        <tr>
+                            <td class="day-label">Sunday</td>
+                            <td>Chole Kulche & Sweet Lassi</td>
+                            <td>Special Thali: Matar Pulao, Dal, Paneer, Sweet</td>
+                            <td>Aloo Tikki & Tea</td>
+                            <td>Light Khichdi, Aloo Chokha, Papad & Pickle</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </section>
+
+    <!-- ======================================================================
+         4. HOSTEL RULES & GUIDELINES SECTION
+         ====================================================================== -->
+    <section id="rules" class="rules-section">
+        <div class="container">
+            <div class="section-head">
+                <span class="section-pill">Community Code</span>
+                <h2>Hostel Rules & Guidelines</h2>
+                <p>Simple guidelines to ensure a peaceful, respectful, and secure living environment for every resident.</p>
+            </div>
+
+            <div class="rules-grid">
+                <div class="rule-card">
+                    <span class="rule-number">RULE 01</span>
+                    <h3>Gate Timings & Biometric Entry</h3>
+                    <p>Main gate closes at 10:30 PM. Late entry for academic labs or travel requires prior digital permission from the Resident Warden.</p>
+                </div>
+
+                <div class="rule-card">
+                    <span class="rule-number">RULE 02</span>
+                    <h3>Quiet Study Hours</h3>
+                    <p>Strict silence must be maintained in corridors and rooms between 10:00 PM and 06:00 AM. Use headphones for music or calls.</p>
+                </div>
+
+                <div class="rule-card">
+                    <span class="rule-number">RULE 03</span>
+                    <h3>Visitor & Parent Policy</h3>
+                    <p>Parents and registered guests are welcome in the Ground Floor Visitor Lounge between 09:00 AM and 07:00 PM with valid ID.</p>
+                </div>
+
+                <div class="rule-card">
+                    <span class="rule-number">RULE 04</span>
+                    <h3>Zero Tolerance Policy</h3>
+                    <p>Smoking, alcohol, narcotics, and ragging are strictly prohibited inside the hostel premises and will lead to immediate expulsion.</p>
+                </div>
+
+                <div class="rule-card">
+                    <span class="rule-number">RULE 05</span>
+                    <h3>Electrical Appliance Safety</h3>
+                    <p>High-wattage heating coils, electric irons, and induction stoves are not permitted inside bedrooms to prevent short circuits.</p>
+                </div>
+
+                <div class="rule-card">
+                    <span class="rule-number">RULE 06</span>
+                    <h3>Notice Period & Rent Cycle</h3>
+                    <p>Monthly rent is due by the 5th of every month. A minimum 30-day prior notice is required for security deposit refund.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ======================================================================
+         5. COMPLAINT & MAINTENANCE SUPPORT SECTION
+         ====================================================================== -->
+    <section id="support">
+        <div class="container">
+            <div class="section-head">
+                <span class="section-pill">Resident Helpdesk</span>
+                <h2>Complaint & Maintenance Support</h2>
+                <p>Facing an issue with Wi-Fi, plumbing, electricals, or mess quality? Raise a ticket for same-day resolution.</p>
+            </div>
+
+            <div class="support-grid">
+                <!-- Left: Direct Escalation Matrix -->
+                <div class="support-info-box">
+                    <h3>24/7 Resident Support Desk</h3>
+                    <p>Our on-site maintenance crew resolves routine electrical and plumbing requests within 4 working hours.</p>
+
+                    <div class="desk-list">
+                        <div class="desk-item">
+                            <span class="desk-icon">🔧</span>
+                            <div>
+                                <h4>Maintenance & Housekeeping</h4>
+                                <p>Available Daily: 08:00 AM – 08:00 PM • Ext: #102</p>
+                            </div>
+                        </div>
+
+                        <div class="desk-item">
+                            <span class="desk-icon">🌐</span>
+                            <div>
+                                <h4>IT & Wi-Fi Network Support</h4>
+                                <p>Instant router reset & LAN support • +91 98490 11223</p>
+                            </div>
+                        </div>
+
+                        <div class="desk-item">
+                            <span class="desk-icon">🩺</span>
+                            <div>
+                                <h4>Medical & Emergency Warden</h4>
+                                <p>24/7 First-Aid & tie-up with City Care Hospital • +91 98490 99887</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Right: Pure-HTML Complaint Ticket Form -->
+                <div class="form-card">
+                    <h3>Raise a Support / Complaint Ticket</h3>
+                    <form action="#ticket-submitted" method="get">
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="res-name">Resident Full Name *</label>
+                                <input type="text" id="res-name" name="res-name" placeholder="e.g., Karthik Reddy" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="room-no">Room & Block Number *</label>
+                                <input type="text" id="room-no" name="room-no" placeholder="e.g., Block A - 204" required>
+                            </div>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="issue-category">Issue Category *</label>
+                                <select id="issue-category" name="issue-category" required>
+                                    <option value="" disabled selected>Select department...</option>
+                                    <option value="electrical">Electrical / AC / Geyser</option>
+                                    <option value="plumbing">Plumbing / Water Supply</option>
+                                    <option value="wifi">Wi-Fi & Internet Connectivity</option>
+                                    <option value="housekeeping">Room Cleaning & Hygiene</option>
+                                    <option value="mess">Food & Mess Feedback</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="urgency">Priority Level *</label>
+                                <select id="urgency" name="urgency" required>
+                                    <option value="normal">Normal (Within 24 hrs)</option>
+                                    <option value="urgent">Urgent (Within 4 hrs)</option>
+                                    <option value="emergency">Emergency (Immediate)</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="issue-desc">Describe the Issue *</label>
+                            <textarea id="issue-desc" name="issue-desc" rows="3" placeholder="Please mention specific details and preferred time for technician visit..." required></textarea>
+                        </div>
+
+                        <button type="submit" class="btn btn-primary" style="width: 100%;">Submit Support Ticket 🛠️</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ======================================================================
+         6. CONTACT DETAILS & BOOKING INQUIRY SECTION
+         ====================================================================== -->
+    <section id="contact" class="contact-section">
+        <div class="container">
+            <div class="section-head">
+                <span class="section-pill">Get In Touch</span>
+                <h2>Contact Details & Room Inquiry</h2>
+                <p>Schedule a physical campus tour or book your bed online before seats fill up.</p>
+            </div>
+
+            <div class="contact-grid">
+                <div class="contact-cards">
+                    <div class="contact-tile">
+                        <div class="contact-tile-icon">📍</div>
+                        <div>
+                            <h4>Hostel Address</h4>
+                            <p>Plot 42, University North Gate Road, Vidya Nagar, Near Metro Pillar 18 (400m from Campus).</p>
+                        </div>
+                    </div>
+
+                    <div class="contact-tile">
+                        <div class="contact-tile-icon">📞</div>
+                        <div>
+                            <h4>Admissions & Warden Helpline</h4>
+                            <p>Office Desk: +91 98490 55441 • Chief Warden: +91 98490 55442 (9:00 AM – 8:00 PM)</p>
+                        </div>
+                    </div>
+
+                    <div class="contact-tile">
+                        <div class="contact-tile-icon">✉️</div>
+                        <div>
+                            <h4>Official Email & Visiting Hours</h4>
+                            <p>admissions@havenstaypg.in • Walk-in tours open daily from 10:00 AM to 06:30 PM.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Room Booking Inquiry Form -->
+                <div class="form-card">
+                    <h3>Book a Room / Schedule Visit</h3>
+                    <form action="#booking-submitted" method="get">
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="student-name">Student Name *</label>
+                                <input type="text" id="student-name" name="student-name" placeholder="Your full name" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="student-phone">Phone / WhatsApp *</label>
+                                <input type="tel" id="student-phone" name="student-phone" placeholder="+91 98765 43210" required>
+                            </div>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="room-pref">Preferred Room Type *</label>
+                                <select id="room-pref" name="room-pref" required>
+                                    <option value="single">Single Private Room (₹13,500/mo)</option>
+                                    <option value="twin" selected>Twin Sharing Deluxe (₹9,500/mo)</option>
+                                    <option value="triple">Triple Sharing Comfort (₹7,200/mo)</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="move-in">Expected Move-In Date *</label>
+                                <input type="date" id="move-in" name="move-in" required>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="college-info">College / Course & Query (Optional)</label>
+                            <textarea id="college-info" name="college-info" rows="2" placeholder="Mention your college name, AC/Non-AC preference, or visit time..."></textarea>
+                        </div>
+
+                        <button type="submit" class="btn btn-primary" style="width: 100%;">Request Callback & Reserve ✨</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ======================================================================
+         PURE-CSS CONFIRMATION MODALS (:target)
+         ====================================================================== -->
+    <div id="ticket-submitted" class="modal-overlay" role="dialog" aria-modal="true">
+        <div class="modal-card">
+            <div class="modal-check">✓</div>
+            <h3>Support Ticket Logged!</h3>
+            <p>Your maintenance request has been assigned to our on-duty technician. You will receive an update shortly.</p>
+            <a href="#support" class="btn btn-primary">Close</a>
+        </div>
+    </div>
+
+    <div id="booking-submitted" class="modal-overlay" role="dialog" aria-modal="true">
+        <div class="modal-card">
+            <div class="modal-check">✓</div>
+            <h3>Inquiry Received!</h3>
+            <p>Thank you for choosing <strong>HavenStay PG</strong>. Our Warden will call you within 2 hours to confirm room availability and your visit slot.</p>
+            <a href="#contact" class="btn btn-primary">Done</a>
+        </div>
+    </div>
+
+    <!-- ======================================================================
+         FOOTER
+         ====================================================================== -->
+    <footer>
+        <div class="container">
+            <a href="#" class="brand">
+                <span class="brand-badge">🏡</span>
+                <span>HavenStay PG</span>
+            </a>
+            <p>Safe, hygienic, and student-friendly PG & Hostel accommodation • Designed with Pure HTML5 & CSS3.</p>
+        </div>
+    </footer>
+
+</body>
+</html>
